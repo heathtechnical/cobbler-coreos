@@ -1,0 +1,13 @@
+#cloud-config
+coreos:
+  etcd:
+    addr: $interfaces.eth0.ip_address:4001
+    peer-addr: $interfaces.eth0.ip_address:7001
+    #if $peers:
+    peers: $peers
+    #end if
+  units:
+    - name: etcd.service
+      command: start
+    - name: fleet.service
+      command: start

@@ -2,7 +2,8 @@
 
 Cobbler trigger to generate CoreOS cloud-config files.
 
-Although Cobbler doesn't have native support for CoreOS, you can boot systems from the kernel/initrd directly:
+Although Cobbler doesn't have native support for CoreOS, you can boot systems 
+from the kernel/initrd directly:
 
     # cobbler distro add \
     --name coreos-alpha-709 \
@@ -26,7 +27,8 @@ Although Cobbler doesn't have native support for CoreOS, you can boot systems fr
     --mac 00:00:00:00:00:00 \
     --gateway 10.0.0.1
 
-Using this trigger, we can get cobbler to generate a per-system cloud-config for us, so checkout the repo and install the trigger and template file:
+Using this trigger, we can get cobbler to generate a per-system cloud-config 
+for us, so checkout the repo and install the trigger and template file:
 
     # git clone https://github.com/heathtechnical/cobbler-coreos.git
     
@@ -42,7 +44,8 @@ We need to then add some kernel options to the distro:
 	--name coreos-alpha-709 \
 	--kopts "coreos.autologin=tty1 cloud-config-url=http://@@server@@/cblr/coreos/cloud-config-@@system_name@@'
 
-This will ensure when we boot our system they point at their own cloud-config files.
+This will ensure when we boot our system they point at their own cloud-config 
+files.
 
 Restart cobblerd and sync:
 
@@ -52,9 +55,13 @@ Restart cobblerd and sync:
 You should now see per-system cloud-config files in /var/www/cobbler/coreos.
 
 ## Default configuration
-The default template provides a somewhat static setup - we pass a list of peers to etcd and therefore don't need a discovery token and we define etcd interfaces statically too.
+The default template provides a somewhat static setup - we pass a list of peers 
+to etcd and therefore don't need a discovery token and we define etcd 
+interfaces statically too.
 
-In order to provide this sort of setup the trigger looks for a kickstart metadata tag 'coreos-peers'.  This needs to be set to the list of systems in the cluster, for a three node setup, this would look like this:
+In order to provide this sort of setup the trigger looks for a kickstart metadata 
+tag 'coreos-peers'.  This needs to be set to the list of systems in the cluster, 
+for a three node setup, this would look like this:
 
     # cobbler system report --name coreos01 | grep Meta
 	Kickstart Metadata             : {}
